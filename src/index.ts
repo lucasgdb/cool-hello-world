@@ -1,3 +1,3 @@
 import { write } from './util';
 
-write('zZ9');
+write('Hello, world!');
