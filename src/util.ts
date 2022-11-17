@@ -25,17 +25,16 @@ export async function write(text: string) {
    };
 
    const consoleUnspecifiedCharacter = async () => {
-      console.log((currentText += text[currentTextIndex++]));
+      currentText += text[currentTextIndex++];
+      console.log(currentText);
+
       await setTimeout(DEFAULT_TIMEOUT_IN_MS);
    };
 
    while (currentText !== text) {
-      if (capitalAlphabet.includes(text[currentTextIndex])) {
-         await consoleWriter(capitalAlphabet);
-      } else if (nonCapitalAlphabet.includes(text[currentTextIndex])) {
-         await consoleWriter(nonCapitalAlphabet);
-      } else if (numbers.includes(text[currentTextIndex])) {
-         await consoleWriter(numbers);
-      } else await consoleUnspecifiedCharacter();
+      if (capitalAlphabet.includes(text[currentTextIndex])) await consoleWriter(capitalAlphabet);
+      else if (nonCapitalAlphabet.includes(text[currentTextIndex])) await consoleWriter(nonCapitalAlphabet);
+      else if (numbers.includes(text[currentTextIndex])) await consoleWriter(numbers);
+      else await consoleUnspecifiedCharacter();
    }
 }
