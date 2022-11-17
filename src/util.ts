@@ -1,8 +1,8 @@
 import { setTimeout } from 'node:timers/promises';
 
-const DEFAULT_TIMEOUT = 40;
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+const DEFAULT_TIMEOUT_IN_MS = 40;
+const capitalAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const nonCapitalAlphabet = 'abcdefghijklmnopqrstuvwxyz';
 const numbers = '0123456789';
 
 export async function write(text: string) {
@@ -13,7 +13,7 @@ export async function write(text: string) {
    const consoleWriter = async (characters: string) => {
       console.log(currentText + characters[currentCharactersIndex]);
 
-      await setTimeout(DEFAULT_TIMEOUT);
+      await setTimeout(DEFAULT_TIMEOUT_IN_MS);
 
       if (text[currentTextIndex] === characters[currentCharactersIndex]) {
          currentText += text[currentTextIndex++];
@@ -29,25 +29,16 @@ export async function write(text: string) {
 
       console.log(currentText);
 
-      await setTimeout(DEFAULT_TIMEOUT);
+      await setTimeout(DEFAULT_TIMEOUT_IN_MS);
    };
 
    while (currentText !== text) {
-      if (alphabet.includes(text[currentTextIndex])) {
-         await consoleWriter(alphabet);
-         continue;
-      }
-
-      if (ALPHABET.includes(text[currentTextIndex])) {
-         await consoleWriter(ALPHABET);
-         continue;
-      }
-
-      if (numbers.includes(text[currentTextIndex])) {
+      if (capitalAlphabet.includes(text[currentTextIndex])) {
+         await consoleWriter(capitalAlphabet);
+      } else if (nonCapitalAlphabet.includes(text[currentTextIndex])) {
+         await consoleWriter(nonCapitalAlphabet);
+      } else if (numbers.includes(text[currentTextIndex])) {
          await consoleWriter(numbers);
-         continue;
-      }
-
-      await consoleUnspecifiedCharacter();
+      } else await consoleUnspecifiedCharacter();
    }
 }
