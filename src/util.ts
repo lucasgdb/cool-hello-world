@@ -25,10 +25,7 @@ export async function write(text: string) {
    };
 
    const consoleUnspecifiedCharacter = async () => {
-      currentText += text[currentTextIndex++];
-
-      console.log(currentText);
-
+      console.log((currentText += text[currentTextIndex++]));
       await setTimeout(DEFAULT_TIMEOUT_IN_MS);
    };
 
